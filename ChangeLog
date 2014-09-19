@@ -1,0 +1,111 @@
+2004-03-17 Fred Gleason <fredg@salemradiolabs.com>
+	* Initial Autotools packages creation.
+2004-03-17 Fred Gleason <fredg@salemradiolabs.com>
+	* Stubbed out application.
+2004-12-07 Fred Gleason <fredg@salemradiolabs.com>
+	* Added code to handle SIGHUP.
+	* Added a 'LogEvents=' directive to gpilog.conf(5).
+	* Fixed a bug in 'gpilog.cpp' that was causing the GPIO device
+	open to always fail.
+2004-12-10 Fred Gleason <fredg@salemradiolabs.com>
+	* Fixed a bug in 'gpilog.cpp' that was causing an empty PID file
+	to be created.
+	* Fixed a bug in 'rc.gpilog' that caused the script to throw a
+	syntax error.
+	* Fixed a bug in 'gpiloc.spec.in'.
+2006-09-19 Fred Gleason <fredg@salemradiolabs.com>
+	* Removed the dependency on libradio.
+	* Created a 'LocalGpio' class in 'local_gpio.cpp'.
+	* Removed the 'GpioDevice=' directive from gpiolog.conf(5).
+	* Added a 'GpioDevice<n>=' directive to gpiolog.conf(5).
+	* Created a 'Profile' class in 'profile.cpp'.
+	* Created a 'ProfileSection' class in 'profilesection.cpp'.
+	* Created a 'ProfileLine' class in 'profileline.cpp'.
+	* Rewrote 'gpilog.cpp' to support multiple GPIO devices.
+2006-09-19 Fred Gleason <fredg@salemradiolabs.com>
+	* Incremented the package version to 2.0.0.
+2006-09-19 Fred Gleason <fredg@salemradiolabs.com>
+	* Modified 'Makefile.am' so as to copy the output of 'make rpm' to
+	the top source directory.
+2007-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'GPIConfig' class in 'gpi_config.cpp'.
+	* Added a '[Device<n>]' section to gpilog.conf(5).
+	* Added 'Pin<n>Logfile=' and 'Pin<n>Name=' directives to the
+	'[Device<n>] section of gpilog.conf(5).
+2007-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'GPIWatchdog' container class in 'gpi_watchdog.cpp'.
+2007-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the 'gpilog.conf.example' file.
+	* Added an 'acinclude.m4' file.
+	* Changed the 'Copyright: tag to 'License:' in 'gpilog.spec.in'.
+2007-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 3.0.0.
+2007-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'ResetDevice=', 'ResetPin=' and 'ResetCommand=' parameters
+	to the [Watchdog<n>] section of gpilog.conf(5).
+2007-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.1.0.
+2007-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Pin<n>Events=', 'Pin<n>OnCommand=' and
+	'Pin<n>OffCommand=' directives to gpilog.conf(5).
+2007-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Pin<n>Inverted=' directive to gpilog.conf(5).
+	* Incremented the package version to 3.2.1.
+2007-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to supporess spurious ON state messages at startup.
+2008-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'StartTime<n>=' and 'EndTime<n>=' directives to the
+	[Watchdog<n>] section of giplog.conf(5).
+2008-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.3.0.
+2008-12-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'gpi_config.cpp' that was causing incorrect
+	Watchdog parameters to be loaded.
+2008-12-24 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.3.1.
+2008-01-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Name=' parameter in the [Watchdog<n>] section of
+	gpilog.conf(5).
+2008-01-05 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.4.0.
+2008-01-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'NormalState=' parameter to the [Watchdog<n>] section of
+	gpilog.conf(5).
+2008-01-05 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.5.0.
+2010-10-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'gpilog.cpp' and 'gpi_config.cpp' that broke the
+	build under OpenSuSE 11.2.
+2010-10-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'UDPMonitor<n>' section to gpilog(5).
+2010-10-28 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.6.0.
+2010-10-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs with loggin UDP Monitor events.
+2010-10-28 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.6.1.
+2010-12-15 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'gpilog.cpp' that caused false UDP monitor
+	timeout alarms.
+2010-12-15 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.6.2.
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed 'configure.in' to 'configure.ac'.
+	* Added 'PACKAGE_VERSION'.
+	* Enabled silent rules in 'configure.ac'.
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Moved sources to 'src/'.
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'GPIPulser' class in 'src/gpi_pulser.cpp' and
+	'src/gpi_pulser.h'.
+	* Implemented a 'Pin<n>PulsePeriod=' directive for gpilog.conf(5).
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/gpilog.cpp' that caused spurious
+	"configured watchdog doesn't exist" messages to appear in the
+	logs.
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.7.0.
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'PACKAGE_VERSION' to EXTRA_DISTS in 'Makefile.am'.
+2014-03-27 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.7.1.

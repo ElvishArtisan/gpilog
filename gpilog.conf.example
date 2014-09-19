@@ -1,0 +1,136 @@
+; gpilog.conf
+;
+; This is the sample configuration file for the GPILog package.
+;
+;   (C) Copyright 2004-2007,2014 Fred Gleason <fredg@paravelsystems.com>
+;
+;      $Id: gpilog.conf.example,v 1.11 2014/03/27 21:12:26 cvs Exp $
+;
+;   This program is free software; you can redistribute it and/or modify
+;   it under the terms of the GNU General Public License version 2 as
+;   published by the Free Software Foundation.
+;
+;   This program is distributed in the hope that it will be useful,
+;   but WITHOUT ANY WARRANTY; without even the implied warranty of
+;   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;   GNU General Public License for more details.
+;
+;   You should have received a copy of the GNU General Public
+;   License along with this program; if not, write to the Free Software
+;   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+;
+; by Fred Gleason <fredg@salemradiolabs.com>
+;
+
+[Global]
+;
+; This is the default log file.  You can override this on a line-by-line
+; by specifying a logfile in the [Device<n>] section(s).
+;
+Logfile=/var/log/gpiolog
+
+;
+; Each GPIO card should be listed with a 'GpioDevice<n>=' directive.
+;
+GpioDevice0=/dev/gpio0
+
+;
+; What type of GPI transitions should we log?  The choices are
+; 'rising', 'falling' or 'both'.
+; 
+LogEvents0=rising
+
+#GpioDevice1=/dev/gpio1
+#LogEvents1=rising
+
+
+;
+; The [Device<n>] sections can be used to customize the log location
+; and contents on a line-by-line basis.
+;
+[Device0]
+;
+; You can log input events
+;
+Pin0Logfile=/var/log/gpiolog1
+Pin0Events=Rising
+Pin0Inverted=No
+Pin0Name=Test Pin 1
+Pin0Watchdog=0
+Pin0OnCommand=on_cmd.sh
+Pin0OffCommand=off_cmd.sh
+
+Pin1Logfile=/var/log/gpiolog2
+Pin1Events=Falling
+Pin1Inverted=Yes
+Pin1Name=Test Pin 2
+Pin1Watchdog=1
+Pin1OnCommand=on_cmd.sh
+Pin1OffCommand=off_cmd.sh
+
+;
+; You can also create pulse outputs
+; (useful with watchdog processes, see below)
+;
+Pin1PulsePeriod=1000
+
+
+;
+; Watchdog processes can be configured that will fire if no normal state is
+; seen at least one during the period specified in 'Timeout=' (msecs).
+; Watchdogs can be configured to activite a GPO line or run a shell command
+; or both when fired.  Shell commands are run as the user running the
+; gpilogd(8) daemon (normally 'root').
+;
+; The 'normal state' can be configured to be one of:
+;  NormalState=Transition
+;  NormalState=High
+;  NormalState=Low
+;
+; Individual GPIs are associated with each watchdog group by means of
+; 'Pin<n>Watchdog=' statements in the [Device<n>] sections.  It is 
+; possible to have more than one GPI associated with a given watchdog.
+;
+; At least one pair of 'StartTime<n>='/'EndTime<n>=' directives must be \
+; configured to give the watchdog an active 'timeslot'.  It is possible
+; to configure multiple timeslots.
+;
+[Watchdog0]
+Name=Watchdog 0
+NormalState=Transition
+Timeout=5000
+TimeoutDevice=/dev/gpio0
+TimeoutPin=0
+TimeoutCommand=/root/timeout_cmd1.sh
+ResetDevice=/dev/gpio0
+ResetPin=1
+ResetCommand=/root/reset_cmd1.sh
+StartTime0=00:00:00
+EndTime0=23:59:59
+
+[Watchdog1]
+Name=Watchdog 1
+NormalState=Transition
+Timeout=10000
+TimeoutDevice=/dev/gpio0
+TimeoutPin=2
+TimeoutCommand=/root/timeout_cmd2.sh
+ResetDevice=/dev/gpio0
+ResetPin=3
+ResetCommand=/root/reset_cmd2.sh
+StartTime0=00:00:00
+EndTime0=23:59:59
+
+;
+; UDP ports can be monitored and data received logged.  A watchdog can be
+; configured to fire if data is not received within a given timeout period.
+;
+[UdpMonitor0]
+Name=UDP Monitor 0
+Timeout=5000
+TimeoutCommand=/root/udp_timeout_cmd1.sh
+ResetCommand=/root/udp_reset_cmd1.sh
+UdpPort=1234
+Logfile=/var/log/gpilog
+LogPackets=Yes
+LogTimeouts=Yes

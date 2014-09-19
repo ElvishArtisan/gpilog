@@ -1,0 +1,33 @@
+These are the installation instructions for the GPILog
+Please be sure to see the file README for general information before
+proceeding!
+
+
+PREREQUISITES
+You will need the following installed and working on your system before
+proceeding:
+
+GPIO Driver
+If you are using one of the cards from MeasurementComputing, you
+will need to install the GPIO driver.  Available at:
+
+     ftp://ftp.salemradiolabs.com/pub/srlabs/gpio/
+
+RPMs for SuSE are also available at:
+
+     ftp://ftp.salemradiolabs.com/pub/srlabs/gpio/suse
+
+
+INSTALLATION
+Once the prerequisites are set up, installation is simply a matter of 
+typing './configure', followed by 'make' and (as root) by 
+'make install' in the top level directory.  
+
+A configuration file, '/etc/gpilog.conf' needs to be created before
+starting the gpilog(8) daemon.  The file 'gpilog.conf.example' in the top
+of the source tree should provide some sane defaults.
+
+Good Luck!
+
+
+Fred Gleason <fredg@salemradiolabs.com>

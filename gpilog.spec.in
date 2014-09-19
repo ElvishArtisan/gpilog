@@ -1,0 +1,71 @@
+# gpilog.spec
+#
+# RPM Spec File for the GpiLog Project
+#
+#   (C) Copyright 2004 Fred Gleason <fredg@salemradiolabs.com>
+#
+#      $Id: gpilog.spec.in,v 1.5 2014/03/27 16:25:21 cvs Exp $
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License version 2 as
+#   published by the Free Software Foundation.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public
+#   License along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+Summary: GPILog
+Name: gpilog
+Version: %PKG_VERSION%
+Release: %RPM_RELEASE%
+License: GPL
+Group: Productivity/Multimedia/Other
+Source: ftp://ftp.salemradiolabs.com/pub/srlabs/gpilog/gpilog-%PKG_VERSION%.tar.gz
+Requires: gpio
+BuildRoot: /var/tmp/gpilog-%PKG_VERSION%
+
+%description
+GPILog is a package for recording the precise times of line transitions
+on a general purpose input (GPI) device.  It uses very few resources
+and can be safely used in conjunction with other programs that monitor
+the same GPI device without interference.
+
+%prep
+%setup
+./configure --prefix=$RPM_BUILD_ROOT/usr/local
+
+%build
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/usr/local/sbin
+cp src/gpilog $RPM_BUILD_ROOT/usr/local/sbin
+
+mkdir -p $RPM_BUILD_ROOT/etc/init.d
+cp gpilog.conf.example $RPM_BUILD_ROOT/etc/gpilog.conf
+cp rc.gpilog $RPM_BUILD_ROOT/etc/init.d/gpilog
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+%doc README INSTALL NEWS AUTHORS ChangeLog COPYING gpilog.conf.example
+/usr/local/sbin/gpilog
+%config /etc/gpilog.conf
+/etc/init.d/gpilog
+
+%changelog
+* Thu Mar 27 2014 Fred Gleason <fredg@paravelsystems.com>
+-- Refactored source.
+* Mon Sep 10 2007 Fred Gleason <fredg@salemradiolabs.com>
+-- Changed the Copyright: tag to License:.
+* Wed Mar 17 2004 Fred Gleason <fredg@salemradiolabs.com>
+-- Initial RPM creation.
