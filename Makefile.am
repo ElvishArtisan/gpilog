@@ -32,6 +32,11 @@ EXTRA_DIST = autogen.sh\
              PACKAGE_VERSION\
              rc.gpilog
 
+ACLOCAL_AMFLAGS = -I m4
+
+maintainer-clean-local:	
+	rm -rf m4
+
 rpm:	dist
 	cp gpilog-$(VERSION).tar.gz $(RPM_ROOT)/SOURCES/
 	$(RPMBUILD) -ba --target i586-$(VENDOR)-linux gpilog.spec
