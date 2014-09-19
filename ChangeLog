@@ -109,3 +109,5 @@
 	* Added 'PACKAGE_VERSION' to EXTRA_DISTS in 'Makefile.am'.
 2014-03-27 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the package version to 3.7.1.
+2014-09-19 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'README'.
