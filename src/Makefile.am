@@ -6,8 +6,6 @@
 ##
 ##   (C) Copyright 2004, 2014 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.2 2014/03/27 21:12:26 cvs Exp $
-##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
 ##   published by the Free Software Foundation.
@@ -44,13 +42,18 @@ dist_gpilog_SOURCES = gpi_config.cpp gpi_config.h\
                       gpi_pulser.cpp gpi_pulser.h\
                       gpi_watchdog.cpp gpi_watchdog.h\
                       gpilog.cpp gpilog.h\
+                      ipv4_pinger.cpp ipv4_pinger.h\
                       local_gpio.cpp local_gpio.h\
+                      ping_tester.cpp ping_tester.h\
                       profile.cpp profile.h\
                       profileline.cpp profileline.h\
                       profilesection.cpp profilesection.h
 nodist_gpilog_SOURCES = moc_gpi_pulser.cpp\
                         moc_gpilog.cpp\
-                        moc_local_gpio.cpp
+                        moc_ipv4_pinger.cpp\
+                        moc_local_gpio.cpp\
+                        moc_ping_tester.cpp
+
 gpilog_LDADD = -lqui
 
 rpm:	dist

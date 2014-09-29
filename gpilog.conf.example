@@ -134,3 +134,17 @@ UdpPort=1234
 Logfile=/var/log/gpilog
 LogPackets=Yes
 LogTimeouts=Yes
+
+;
+; IPv4 addresses can be monitored and a watchdog fired if the address
+; becomes unreachable.
+;
+[IPv4AddressMonitor0]
+Name=Address Monitor 0
+Address=127.0.0.1
+Pings=5
+Timeout=5000
+Interval=60000
+TimeoutCommand=/root/ipv4_timeout_cmd1.sh
+ResetCommand=/root/ipv4_reset_cmd1.sh
+Logfile=/var/log/ipv4log

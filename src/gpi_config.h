@@ -27,6 +27,7 @@
 
 #include <qstring.h>
 #include <qdatetime.h>
+#include <qhostaddress.h>
 
 #include <local_gpio.h>
 
@@ -76,6 +77,17 @@ class GPIConfig
   QString monitorLogfile(unsigned mon) const;
   bool monitorLogPackets(unsigned mon) const;
   bool monitorLogTimeouts(unsigned mon) const;
+
+  unsigned ipv4Monitors() const;
+  QString ipv4MonitorName(unsigned mon) const;
+  QHostAddress ipv4MonitorAddress(unsigned mon) const;
+  unsigned ipv4MonitorPings(unsigned mon) const;
+  unsigned ipv4MonitorTimeout(unsigned mon) const;
+  unsigned ipv4MonitorInterval(unsigned mon) const;
+  QString ipv4MonitorTimeoutCommand(unsigned mon) const;
+  QString ipv4MonitorResetCommand(unsigned mon) const;
+  QString ipv4MonitorLogfile(unsigned mon) const;
+
   void load();
   void clear();
 
@@ -112,6 +124,15 @@ class GPIConfig
   std::vector<QString> conf_monitor_logfiles;
   std::vector<bool> conf_monitor_log_packetss;
   std::vector<bool> conf_monitor_log_timeoutss;
+
+  std::vector<QString> conf_ipv4_monitor_names;
+  std::vector<QHostAddress> conf_ipv4_monitor_addresses;
+  std::vector<unsigned> conf_ipv4_monitor_pings;
+  std::vector<unsigned> conf_ipv4_monitor_timeouts;
+  std::vector<unsigned> conf_ipv4_monitor_intervals;
+  std::vector<QString> conf_ipv4_monitor_timeout_commands;
+  std::vector<QString> conf_ipv4_monitor_reset_commands;
+  std::vector<QString> conf_ipv4_monitor_logfiles;
 };
 
 

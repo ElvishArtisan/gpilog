@@ -249,6 +249,60 @@ bool GPIConfig::monitorLogTimeouts(unsigned mon) const
 }
 
 
+unsigned GPIConfig::ipv4Monitors() const
+{
+  return conf_ipv4_monitor_names.size();
+}
+
+
+QString GPIConfig::ipv4MonitorName(unsigned mon) const
+{
+  return conf_ipv4_monitor_names[mon];
+}
+
+
+QHostAddress GPIConfig::ipv4MonitorAddress(unsigned mon) const
+{
+  return conf_ipv4_monitor_addresses[mon];
+}
+
+
+unsigned GPIConfig::ipv4MonitorPings(unsigned mon) const
+{
+  return conf_ipv4_monitor_pings[mon];
+}
+
+
+unsigned GPIConfig::ipv4MonitorTimeout(unsigned mon) const
+{
+  return conf_ipv4_monitor_timeouts[mon];
+}
+
+
+unsigned GPIConfig::ipv4MonitorInterval(unsigned mon) const
+{
+  return conf_ipv4_monitor_intervals[mon];
+}
+
+
+QString GPIConfig::ipv4MonitorTimeoutCommand(unsigned mon) const
+{
+  return conf_ipv4_monitor_timeout_commands[mon];
+}
+
+
+QString GPIConfig::ipv4MonitorResetCommand(unsigned mon) const
+{
+  return conf_ipv4_monitor_reset_commands[mon];
+}
+
+
+QString GPIConfig::ipv4MonitorLogfile(unsigned mon) const
+{
+  return conf_ipv4_monitor_logfiles[mon];
+}
+
+
 void GPIConfig::load()
 {
   QString dev;
@@ -414,6 +468,28 @@ void GPIConfig::load()
     name=p->stringValue(section,"Name","",&ok);
   }
 
+  //
+  // [IPv4AddressMonitor<n>] Section
+  //
+  mon=0;
+  section=QString().sprintf("IPv4AddressMonitor%d",mon);
+  name=p->stringValue(section,"Name","",&ok);
+  while(ok) {
+    conf_ipv4_monitor_names.push_back(name);
+    conf_ipv4_monitor_addresses.
+      push_back(QHostAddress(p->stringValue(section,"Address")));
+    conf_ipv4_monitor_pings.push_back(p->intValue(section,"Pings"));
+    conf_ipv4_monitor_timeouts.push_back(p->intValue(section,"Timeout"));
+    conf_ipv4_monitor_intervals.push_back(p->intValue(section,"Interval"));
+    conf_ipv4_monitor_timeout_commands.
+      push_back(p->stringValue(section,"TimeoutCommand"));
+    conf_ipv4_monitor_reset_commands.
+      push_back(p->stringValue(section,"ResetCommand"));
+    conf_ipv4_monitor_logfiles.
+      push_back(p->stringValue(section,"Logfile"));
+    section=QString().sprintf("IPv4AddressMonitor%d",++mon);
+    name=p->stringValue(section,"Name","",&ok);
+  }
   delete p;
 }
 

@@ -344,6 +344,51 @@ void GpiLog::monitorTimeoutData(int n)
 }
 
 
+void GpiLog::ipv4StateChangedData(unsigned n,bool state)
+{
+  //  printf("ipv4StateChangedData(%u,%d)\n",n,state);
+
+  //
+  // Log It
+  //
+  QString msg=tr("IPv4 monitor")+" \""+gpi_config->ipv4MonitorName(n)+"\" "+
+    "["+gpi_config->ipv4MonitorAddress(n).toString()+"] ";
+  if(state) {
+    msg+=tr("been restored.");
+  }
+  else {
+    msg+=tr("failed.");
+  }
+  msg+="\n";
+  if(gpi_config->ipv4MonitorLogfile(n).isEmpty()) {
+    LogLine(msg,gpi_config->logfile());
+  }
+  else {
+    LogLine(msg,gpi_config->ipv4MonitorLogfile(n));
+  }
+
+  //
+  // Run Script
+  //
+  if(state) {
+    if(!gpi_config->ipv4MonitorResetCommand(n).isEmpty()) {
+      if(fork()==0) {
+	system(gpi_config->ipv4MonitorResetCommand(n));
+	exit(0);
+      }
+    }
+  }
+  else {
+    if(!gpi_config->ipv4MonitorTimeoutCommand(n).isEmpty()) {
+      if(fork()==0) {
+	system(gpi_config->ipv4MonitorTimeoutCommand(n));
+	exit(0);
+      }
+    }
+  }  
+}
+
+
 void GpiLog::restartData()
 {
   if(shutdown) {
@@ -621,6 +666,16 @@ void GpiLog::Init()
   }
 
   //
+  // Load IP Address Monitors
+  //
+  gpio_pinger=new IPv4Pinger(this);
+  for(unsigned i=0;i<gpi_config->ipv4Monitors();i++) {
+    gpio_ping_testers.push_back(new PingTester(gpi_config,i,gpio_pinger,this));
+    connect(gpio_ping_testers.back(),SIGNAL(stateChanged(unsigned,bool)),
+	    this,SLOT(ipv4StateChangedData(unsigned,bool)));
+  }
+
+  //
   // Log Startup
   //
   if(initial_start) {
@@ -654,6 +709,12 @@ void GpiLog::Init()
 
 void GpiLog::Restart()
 {
+  for(unsigned i=0;i<gpio_ping_testers.size();i++) {
+    delete gpio_ping_testers[i];
+  }
+  gpio_ping_testers.clear();
+  delete gpio_pinger;
+
   gpi_watchdog_scan_timer->stop();
   for(unsigned i=0;i<gpio_watchdogs.size();i++) {
     gpio_watchdogs[i]->timeoutTimer()->stop();

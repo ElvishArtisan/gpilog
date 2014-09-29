@@ -32,7 +32,9 @@
 #include <gpi_watchdog.h>
 #include <gpi_monitor.h>
 #include <gpi_pulser.h>
+#include <ipv4_pinger.h>
 #include <local_gpio.h>
+#include <ping_tester.h>
 
 //
 // Application Settings
@@ -59,6 +61,7 @@ class GpiLog : public QObject
   void watchdogRestartData(int n);
   void monitorPacketData(int sock);
   void monitorTimeoutData(int n);
+  void ipv4StateChangedData(unsigned n,bool state);
   void restartData();
 
  private:
@@ -73,6 +76,8 @@ class GpiLog : public QObject
   std::vector<GPIWatchdog *> gpio_watchdogs;
   std::vector<GPIMonitor *> gpio_monitors;
   std::vector<GPIPulser *> gpio_pulsers;
+  std::vector<PingTester *> gpio_ping_testers;
+  IPv4Pinger *gpio_pinger;
   bool initial_start;
   GPIConfig *gpi_config;
   QTimer *gpi_startup_timer;
