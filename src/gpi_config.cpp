@@ -448,7 +448,7 @@ void GPIConfig::load()
   name=p->stringValue(section,"Name","",&ok);
   while(ok) {
     conf_monitor_names.push_back(name);
-    conf_monitor_timeouts.push_back(p->intValue(section,"Timeout"));
+    conf_monitor_timeouts.push_back(p->intValue(section,"Timeout",60000));
     conf_monitor_timeout_commands.
       push_back(p->stringValue(section,"TimeoutCommand"));
     conf_monitor_reset_commands.
@@ -478,9 +478,10 @@ void GPIConfig::load()
     conf_ipv4_monitor_names.push_back(name);
     conf_ipv4_monitor_addresses.
       push_back(QHostAddress(p->stringValue(section,"Address")));
-    conf_ipv4_monitor_pings.push_back(p->intValue(section,"Pings"));
-    conf_ipv4_monitor_timeouts.push_back(p->intValue(section,"Timeout"));
-    conf_ipv4_monitor_intervals.push_back(p->intValue(section,"Interval"));
+    conf_ipv4_monitor_pings.push_back(p->intValue(section,"Pings",5));
+    conf_ipv4_monitor_timeouts.push_back(p->intValue(section,"Timeout",5000));
+    conf_ipv4_monitor_intervals.
+      push_back(p->intValue(section,"Interval",60000));
     conf_ipv4_monitor_timeout_commands.
       push_back(p->stringValue(section,"TimeoutCommand"));
     conf_ipv4_monitor_reset_commands.

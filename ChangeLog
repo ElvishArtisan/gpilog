@@ -115,3 +115,6 @@
 	* Modernized the AC_INIT() and AM_INIT() invocations in 'configure.ac'.
 2014-09-29 Fred Gleason <fredg@paravelsystems.com>
 	* Implemented an IPv4 address monitor.
+2014-10-01 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/gpi_config.cpp' and 'src/ping_tester.cpp'
+	that caused a segfault upon startup.

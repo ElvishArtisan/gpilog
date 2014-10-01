@@ -44,7 +44,7 @@ PingTester::PingTester(GPIConfig *config,unsigned n,IPv4Pinger *pinger,
   //
   // Reply Slots
   //
-  for(int i=0;i<(config->monitorTimeout(n)/1000);i++) {
+  for(unsigned i=0;i<config->ipv4MonitorPings(n);i++) {
     ping_replies.push_back(true);
   }
 
