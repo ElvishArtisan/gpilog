@@ -82,6 +82,7 @@ class GPIConfig
   QString ipv4MonitorName(unsigned mon) const;
   QHostAddress ipv4MonitorAddress(unsigned mon) const;
   unsigned ipv4MonitorPings(unsigned mon) const;
+  unsigned ipv4MonitorValidPings(unsigned mon) const;
   unsigned ipv4MonitorTimeout(unsigned mon) const;
   unsigned ipv4MonitorInterval(unsigned mon) const;
   QString ipv4MonitorTimeoutCommand(unsigned mon) const;
@@ -128,6 +129,7 @@ class GPIConfig
   std::vector<QString> conf_ipv4_monitor_names;
   std::vector<QHostAddress> conf_ipv4_monitor_addresses;
   std::vector<unsigned> conf_ipv4_monitor_pings;
+  std::vector<unsigned> conf_ipv4_monitor_valid_pings;
   std::vector<unsigned> conf_ipv4_monitor_timeouts;
   std::vector<unsigned> conf_ipv4_monitor_intervals;
   std::vector<QString> conf_ipv4_monitor_timeout_commands;

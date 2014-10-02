@@ -72,22 +72,27 @@ bool PingTester::state() const
 
 void PingTester::timeoutData()
 {
+  unsigned valid_pings=0;
+
   if(ping_istate==ping_replies.size()) {
     //
     // Check Reply Slots
     //
     for(unsigned i=0;i<ping_replies.size();i++) {
       if(ping_replies[i]) {
-	if(!ping_state) {
-	  ping_state=true;
-	  emit stateChanged(ping_number,ping_state);
-	}
+	valid_pings++;
       }
-      else {
-	if(ping_state) {
-	  ping_state=false;
-	  emit stateChanged(ping_number,ping_state);
-	}
+    }
+    if(valid_pings<ping_config->ipv4MonitorValidPings(ping_number)) {
+      if(ping_state) {
+	ping_state=false;
+	emit stateChanged(ping_number,ping_state);
+      }
+    }
+    else {
+      if(!ping_state) {
+	ping_state=true;
+	emit stateChanged(ping_number,ping_state);
       }
     }
 

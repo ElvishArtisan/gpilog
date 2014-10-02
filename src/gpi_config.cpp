@@ -273,6 +273,12 @@ unsigned GPIConfig::ipv4MonitorPings(unsigned mon) const
 }
 
 
+unsigned GPIConfig::ipv4MonitorValidPings(unsigned mon) const
+{
+  return conf_ipv4_monitor_valid_pings[mon];
+}
+
+
 unsigned GPIConfig::ipv4MonitorTimeout(unsigned mon) const
 {
   return conf_ipv4_monitor_timeouts[mon];
@@ -479,6 +485,9 @@ void GPIConfig::load()
     conf_ipv4_monitor_addresses.
       push_back(QHostAddress(p->stringValue(section,"Address")));
     conf_ipv4_monitor_pings.push_back(p->intValue(section,"Pings",5));
+    conf_ipv4_monitor_valid_pings.
+      push_back(p->intValue(section,"ValidPings",
+			    conf_ipv4_monitor_pings.back()));
     conf_ipv4_monitor_timeouts.push_back(p->intValue(section,"Timeout",5000));
     conf_ipv4_monitor_intervals.
       push_back(p->intValue(section,"Interval",60000));

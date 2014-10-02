@@ -143,6 +143,7 @@ LogTimeouts=Yes
 Name=Address Monitor 0
 Address=127.0.0.1
 Pings=5
+ValidPings=4
 Timeout=5000
 Interval=60000
 TimeoutCommand=/root/ipv4_timeout_cmd1.sh
