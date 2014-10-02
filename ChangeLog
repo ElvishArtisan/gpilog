@@ -136,3 +136,5 @@
 	* Added a 'ValidPings=' parameter to the [IPv4Monitor<n] section
 	of gpilog.conf(5) in 'src/gpi_config.cpp', 'src/gpi_config.h',
 	'src/ping_tester.cpp' and 'src/ping_tester.h'.
+2014-10-02 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 3.8.1.
