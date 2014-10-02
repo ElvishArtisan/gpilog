@@ -27,6 +27,8 @@
 SUBDIRS = src
 
 EXTRA_DIST = autogen.sh\
+             get_distro.sh\
+             get_target.sh\
              gpilog.conf-sample\
              gpilog.spec.in\
              PACKAGE_VERSION\

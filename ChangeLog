@@ -127,3 +127,6 @@
 	* Added chkconfig header to 'rc.gpilog.in'.
 	* Changed binary location to '@prefix@/sbin' in 'rc.gpilog.in'.
 	* Added date stamp to IPv4 Monitor log entries in 'gpilog.cpp'.
+2014-10-02 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'get_distro.sh' to the 'EXTRA_DISTS' rule in 'Makefile.am'.
+	* Added 'get_target.sh' to the 'EXTRA_DISTS' rule in 'Makefile.am'.
