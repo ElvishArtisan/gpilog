@@ -122,3 +122,8 @@
 	* Modified the 'make rpm' target to work with home directory based
 	RPM build tree.
 	* Renamed 'gpilog.conf.example' to 'gpilog.conf-sample'.
+2014-10-02 Fred Gleason <fredg@paravelsystems.com>
+	* Moved 'rc.gpilog' to 'rc.gpilog.in'.
+	* Added chkconfig header to 'rc.gpilog.in'.
+	* Changed binary location to '@prefix@/sbin' in 'rc.gpilog.in'.
+	* Added date stamp to IPv4 Monitor log entries in 'gpilog.cpp'.

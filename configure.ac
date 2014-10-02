@@ -77,5 +77,7 @@ AC_SUBST(RPM_DATESTAMP,`date +%a\ %b\ %d\ %Y`)
 
 AC_OUTPUT(Makefile \
           gpilog.spec \
+          rc.gpilog \
           src/Makefile \
 )
+chmod 755 rc.gpilog

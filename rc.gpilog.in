@@ -20,6 +20,10 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+# chkconfig: 235 99 1
+# description: GPILog daemon
+# config: /etc/gpilog.conf
+
 ### BEGIN INIT INFO
 # Provides:          gpilog
 # Required-Start:    $remote_fs gpio
@@ -34,7 +38,7 @@
 #
 # Package Definitions
 #
-PACKAGE_BIN=/usr/local/sbin/gpilog
+PACKAGE_BIN=@prefix@/sbin/gpilog
 PACKAGE_CONFIG=/etc/gpilog.conf
 PACKAGE_PID=/var/run/gpilog.pid
 PACKAGE_NAME="GPILog daemon"

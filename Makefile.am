@@ -30,7 +30,7 @@ EXTRA_DIST = autogen.sh\
              gpilog.conf-sample\
              gpilog.spec.in\
              PACKAGE_VERSION\
-             rc.gpilog
+             rc.gpilog.in
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -58,7 +58,8 @@ CLEANFILES = *~\
 DISTCLEANFILES = depcomp\
                  install-sh\
                  missing mkinstalldirs\
-                 gpilog.spec
+                 gpilog.spec\
+                 rc.gpilog
 MAINTAINERCLEANFILES = *~\
                        *.tar.gz\
                        configure aclocal.m4\

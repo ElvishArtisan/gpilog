@@ -351,10 +351,13 @@ void GpiLog::ipv4StateChangedData(unsigned n,bool state)
   //
   // Log It
   //
-  QString msg=tr("IPv4 monitor")+" \""+gpi_config->ipv4MonitorName(n)+"\" "+
+  QString msg=QString().sprintf("%s | %s: ",
+	     (const char *)QDate::currentDate().toString("MM-dd-yyyy"),
+	     (const char *)QTime::currentTime().toString("hh:mm:ss.zzz"));
+  msg+=tr("IPv4 monitor")+" \""+gpi_config->ipv4MonitorName(n)+"\" "+
     "["+gpi_config->ipv4MonitorAddress(n).toString()+"] ";
   if(state) {
-    msg+=tr("been restored.");
+    msg+=tr("restored.");
   }
   else {
     msg+=tr("failed.");
