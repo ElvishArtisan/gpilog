@@ -1,11 +1,11 @@
 #!/bin/sh
 ##
-##    (C) Copyright 2002-2004  Fred Gleason <fredg@salemradiolabs.com>
+##    (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
+##
+##      $Id: autogen.sh,v 1.5 2010/07/29 19:32:30 cvs Exp $
 ##
 ##    Adapted from './autogen.sh' in the Jack Audio Connection Kit.
-##    (C) Copyright 2001-2003 Paul Davis, et al.
-##
-##       $Id: autogen.sh,v 1.2 2006/10/20 02:26:23 fredg Exp $
+##    Copyright (C) 2001-2003 Paul Davis, et al.
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -27,8 +27,8 @@ aclocal $ACLOCAL_FLAGS || {
     exit 1
 }
 
-automake --add-missing --foreign || {
-    echo "automake --add-missing --foreign failed, exiting..."
+automake --add-missing -Wno-portability || {
+    echo "automake --add-missing failed, exiting..."
     exit 1
 }
 

@@ -1,8 +1,6 @@
 dnl configure.in
 dnl 
-dnl (C) Copyright 2003-2006 Fred Gleason <fredg@salemradiolabs.com>
-dnl
-dnl   $Id: configure.ac,v 1.2 2014/03/27 16:25:20 cvs Exp $
+dnl (C) Copyright 2003-2006 Fred Gleason <fredg@paravelsystems.com>
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -20,11 +18,11 @@ dnl
 dnl
 dnl Use autoconf to process this into a configure script
 
-AC_INIT(gpilog,m4_esyscmd(cat PACKAGE_VERSION))
+AC_INIT([gpilog],m4_esyscmd(cat PACKAGE_VERSION))
 AM_INIT_AUTOMAKE
 AC_SUBST(RPM_RELEASE,1)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
-dnl AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_CXX
 AC_LANG(C++)
@@ -46,6 +44,19 @@ if test -z $GPIO_FOUND ; then
 fi
 
 #
+# Determine the target architecture
+#
+AR_GCC_TARGET()
+AC_SUBST(VENDOR,$ar_gcc_distro)
+AC_SUBST(ARCH,$ar_gcc_arch)
+
+#
+# Determine Distro
+#
+AR_GET_DISTRO()
+AC_SUBST(DISTRO,$ar_gcc_distro)
+
+#
 # Configure RPM Build
 #
 AC_CHECK_PROG(RPMBUILD_FOUND,rpmbuild,[yes],[])
@@ -54,7 +65,7 @@ if test -z $RPMBUILD_FOUND ; then
 else
   AC_SUBST(RPMBUILD,rpmbuild)
 fi
-sed -e s/%PKG_VERSION%/$VERSION/g -e s/%RPM_RELEASE%/$RPM_RELEASE/g gpilog.spec.in > gpilog.spec
+#sed -e s/%PKG_VERSION%/$VERSION/g -e s/%RPM_RELEASE%/$RPM_RELEASE/g gpilog.spec.in > gpilog.spec
 if test -d /usr/src/redhat ; then
   AC_SUBST(RPM_ROOT,/usr/src/redhat)
   AC_SUBST(VENDOR,redhat)
@@ -62,7 +73,9 @@ else
   AC_SUBST(RPM_ROOT,/usr/src/packages)
   AC_SUBST(VENDOR,suse)
 fi 
+AC_SUBST(RPM_DATESTAMP,`date +%a\ %b\ %d\ %Y`)
 
 AC_OUTPUT(Makefile \
+          gpilog.spec \
           src/Makefile \
 )

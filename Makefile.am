@@ -27,7 +27,7 @@
 SUBDIRS = src
 
 EXTRA_DIST = autogen.sh\
-             gpilog.conf.example\
+             gpilog.conf-sample\
              gpilog.spec.in\
              PACKAGE_VERSION\
              rc.gpilog
@@ -37,13 +37,20 @@ ACLOCAL_AMFLAGS = -I m4
 maintainer-clean-local:	
 	rm -rf m4
 
+install-exec-local:	
+	mkdir -p $(DESTDIR)/etc/init.d
+	cp rc.gpilog $(DESTDIR)/etc/init.d/gpilog
+
+uninstall-local:
+	rm -f $(DESTDIR)/etc/init.d/gpilog
+
 rpm:	dist
-	cp gpilog-$(VERSION).tar.gz $(RPM_ROOT)/SOURCES/
-	$(RPMBUILD) -ba --target i586-$(VENDOR)-linux gpilog.spec
-	mv $(RPM_ROOT)/RPMS/i586/gpilog-$(VERSION)-@RPM_RELEASE@.i586.rpm $(top_srcdir)/
-	mv $(RPM_ROOT)/SRPMS/gpilog-$(VERSION)-@RPM_RELEASE@.src.rpm $(top_srcdir)/
-	rm $(RPM_ROOT)/SOURCES/gpilog-$(VERSION).tar.gz
-	rm -rf $(RPM_ROOT)/BUILD/gpilog-$(VERSION)
+	cp gpilog-$(VERSION).tar.gz $(HOME)/rpmbuild/SOURCES/
+	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux gpilog.spec
+	mv $(HOME)/rpmbuild/RPMS/$(ARCH)/gpilog-*.rpm $(top_srcdir)/
+	mv $(HOME)/rpmbuild/SRPMS/gpilog-*.src.rpm $(top_srcdir)/
+	rm $(HOME)/rpmbuild/SOURCES/gpilog-$(VERSION).tar.gz
+	rm -rf $(HOME)/rpmbuild/BUILD/gpilog-$(VERSION)
 
 CLEANFILES = *~\
              *.rpm\

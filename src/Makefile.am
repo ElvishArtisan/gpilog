@@ -30,12 +30,6 @@ MOC = @QT_MOC@
 moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
-install-exec-local:	
-	cp rc.gpilog /etc/init.d/gpilog
-
-uninstall-local:
-	rm -f /etc/init.d/gpilog
-
 sbin_PROGRAMS = gpilog
 dist_gpilog_SOURCES = gpi_config.cpp gpi_config.h\
                       gpi_monitor.cpp gpi_monitor.h\

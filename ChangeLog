@@ -118,3 +118,7 @@
 2014-10-01 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'src/gpi_config.cpp' and 'src/ping_tester.cpp'
 	that caused a segfault upon startup.
+2014-10-02 Fred Gleason <fredg@paravelsystems.com>
+	* Modified the 'make rpm' target to work with home directory based
+	RPM build tree.
+	* Renamed 'gpilog.conf.example' to 'gpilog.conf-sample'.
